@@ -1,0 +1,24 @@
+Project 1 - Toy Shell
+
+SeungJu Lee 	Student ID#: 407742
+Elliot Yun 		Student ID#: 419298
+
+-----------------------------------------------------------------------
+The Source and Header Files include the Following:
+shell.cpp shell.h external.cpp external.h command.h command.cpp
+
+shell.cpp contains: main function / Signal handlers / parsing input for script file flags
+
+external.cpp contains: external command handling(IO redirection / Pipes & Forks) / executing scriptfiles according to the Search path
+
+command.cpp contains: All Internal Commands (Built-In)
+
+The manual file is named <XSSHman>
+
+In case the dir command doesn't work, makesure <dirent.h> is included in the header file. 
+
+The makefile is named <makefile>
+
+The toy shell supports all the features specified on the instruction sheet
+
+The shell has been tested thoroughly in a linux environment and operates satisfactorily.

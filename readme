@@ -1,0 +1,401 @@
+XSSH
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Table of Contents
+
+	+ Xssh
+
+	+ Internal Commands
+		- Show
+		- Set
+		- Unset
+		- Export
+		- Unexport
+		- Environ
+		- Chdir
+		- Exit
+		- Wait
+		- Clr
+		- Dir
+		- Echo
+		- Help
+		- Pause
+		- History
+		- Repeat
+		- Kill
+
+	+ Externals
+		- Pipes/Forks/ IO Redirection
+		- Ampersand (&)
+
+	+ Signals
+		- Ignored 
+		- Dispositioned
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+Name 
+	Xssh
+
+Description
+	This Shell is a toy Shell which indicates that it lacks many functionalities that a “fully” functioning Shell would have.
+
+Synopsis
+	xssh [-x] [-d <level>] [-f file [arg] …]
+
+Options
+	* All of these fields are optional, meaning that any combination of these could be used together
+
+	-x represents the command line argument that will be computed before executing the script file.  
+
+	-d options is for displaying the debug messages. The level value indicates the level of detail in the debug statement with 0 being no 
+	debug statement and 1 and up displaying a increasingly thorough debug description. 
+
+	-f the toy shell allows input from a file instead of from stdin. The file would be a shell script and the args that follow will be 
+	stored as variables in the environment and will be used when executing the file. 	
+	
+--------------------------------------------------------------------------------------------------------------------------------------------
+Internal Commands
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Show
+
+Name
+
+	Show - display the word(s) and their definitions in the following lines. (New line for each word - definition pair)
+
+Synopsis
+
+	show [ Word ] [ … ] - shows the variable Word and its value. Additional words could be specified and each would be defined.   
+
+Options
+
+	Show must be followed with a word which should be the key (name) of the variable that has been stored in the Shell environment. Any 
+	additional words are optional, but must be separated by a space from its previous word in order for the Shell to recognize that it is a 
+	new coin. 
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Set
+
+Name
+
+	Set - used to set a variable with a certain value in the Shell environment.
+
+Synopsis
+
+	set [ Word ] [ Word ] 
+
+Options
+
+	Set must be followed by exactly two words. The first word is the variable name and the second word would be the value stored with the 
+	variable. The two words must be separated by a space in order for them to be recognized as 2 different words, or else the command will 
+	not be valid.
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Unset
+
+Name
+
+	Unset - used to unset a variable from the Shell environment.
+
+Synopsis
+
+	unset [ Word ]
+
+Options
+
+	Set must be followed by exactly one word. The first word is the variable name which will be unset from the list of environment variables
+	of the Shell.
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Export
+
+Name
+
+	export - used to export a variable to the environment while setting its value
+
+Synopsis
+
+	export [ Word ] [ Word ]
+
+Options
+
+	Export must be followed by exactly two words, separated by a space to indicate that they are indeed two different words. The first word 
+	indicates the name of the variable which should be synced with the variable of actual Shell. If the variable does not exist the variable 
+	is not exported. The second variable is the value in which would be stored associated with the exported variable. 
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Unexport
+
+Name
+
+	Unexport - used to unexport a variable from the environment 
+
+Synopsis
+
+	unexport [ Word ]
+
+Options
+
+	Unexport must be followed by exactly one word. This word indicates the name of the variable which will be unexported, or unset from the 
+	Shell environment. If the variable does not exist the variable is not unexported. 
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Environ
+
+Name
+
+	Environ - shows all environment variables set in the Shell environment.
+
+Synopsis
+
+	environ - shows all environment variables
+
+Options
+
+	The environ command takes  no additional command arguments and displays all the environment variables associated with the Shell.
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Chdir
+
+Name
+
+	Chdir - Changes the working directory of the shell.
+
+Synopsis
+
+	chdir [ /path ] - sets the absolute path
+	chdir [ path ] - sets a relative path to the current working directory
+	chdir [ . ] - the current directory
+	chdir [..] - moves up a level from the current directory
+	chdir - sets the working directory to the home directory (of the Shell)
+
+Options
+
+	chdir takes an additional command which is the directory to which the working directory will be switched to. The chdir command on its own 
+	will set the working directory to the home directory in which the executable for the Shell lies in.
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Exit
+
+Name
+
+	exit - exits the Shell
+
+Synopsis
+
+	exit [ int i ] - exit the shell with i as the return value.
+
+Options
+
+	exit command must be followed by an int value in order for the command to be valid. The shell will then exit and return the int value. 
+	As Signals are blocked, this is the only way to properly exit the Shell.
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Wait
+
+Name
+
+	wait - waits on the specified process to finish.
+
+Synopsis
+
+	wait [ pid_t pid] - pid in the form of int
+
+Options
+
+	Wait takes an additional command of type pid_t which is an integer for it to be a valid command. The pid is the id of the process in 
+	which the Shell will wait on before continuing with any operations. 
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Clr
+
+Name
+
+	clr - Clears the terminal screen and prompts the user of input at the top of the cleared screen.
+
+Synopsis
+
+	clr - clears the screen.
+
+Options
+
+	The command must only consist of “clr” as any other command syntax would give a command error. 
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Echo
+
+Name
+
+	Echo - prints out a specific statement 
+
+Synopsis
+
+	echo [ comment ] - prints out the comment in the following line (a new line). 
+
+Options
+
+	the echo command requires an additional argument which is the comment that will be printed out in the following screen as a string. 
+	Not following the format will result in a command error.
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Dir
+
+Name
+
+	Dir - Shows the content of the directory which is the current working directory (path).
+
+Synopsis
+
+	dir - lists content of directory.
+
+Options
+
+	Dir must take no additional arguments as doing so will give a command error. Dir on its own is a valid command and will list the 
+	items in the directory.
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Pause
+
+Name
+
+	Pause - pauses the operation of the shell until a certain input.
+
+Synopsis
+
+	pause - pauses the operation until enter in pressed.
+
+Options
+
+	Pause takes no additional arguments. Upon calling pause, the operation of the shell is stopped until enter is pressed. 
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+History
+
+Name
+
+	History - shows the history of commands. Stores up to 100 past commands.
+
+Synopsis
+
+	history [ int n ] - Int n is optional. If n is specified, it shows the last n commands in the history list. Else, it shows the 
+	full history list.
+
+Options
+
+	History must be in the form of either “history” by itself or followed by one additional argument of int type. History by itself 
+	lists the past 100 commands regardless of failure or success of the execution. History followed by an integer lists the past 
+	integer amount of commands. 
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+Help
+
+Name
+
+	Help - loads this user manual page.
+
+Synopsis
+
+	help - no additional commands. Loads man page.
+
+Options
+
+	Help must take only one argument which is “help” with no additional arguments. 
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+Repeat
+
+Name
+
+	Repeat - repeats a previous command. Doesn’t necessarily have to be the last executed command
+
+Synopsis
+
+	repeat [int n] - Int n is optional. If n is not specified then repeats the last command. If n is specified, it repeats the 
+	command that is the nth command on the history list.
+
+Options
+
+	Repeat must have the syntax of only one argument of “repeat” or “repeat” followed by an integer. Any other argument syntax 
+	will give a command error. 
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+Kill
+
+Name
+
+	Kill - terminates a process.
+
+Synopsis
+
+	kill [-n] pid - kills the process associated with the pid. 
+
+Options
+
+	Must have either 2 or 3 arguments. Int n is optional.  If n is specified terminates the process associated with the pid with 
+	the signal number of n. If n isn’t specified the process is killed without a specified signal.  
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Externals
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+The Toy shell supports external commands that would utilize the actual shell commands. Refer to the Bash man page for more details on the 
+different types of commands available to the actual shell.
+
+Pipes / Forks / IO redirection
+
+	xssh >> [ Process ] [ -d ] [ Process ] [ -d ] [ Process ] [ -d ] [ Process ]
+
+	-d signifies the "director" which would be pipes (|) or IO redirections (< or > or >> or <<)
+
+	The Toy shell allows up to 4 commands with 3 pipes(or stdin/out redirections) in between. Each command is executed by the child after 
+	forking the node and is piped (or IO redirection). 
+
+Ampersand
+	Marking the start of a process with an Ampersand(&) mark will make the process continue as a background process. No Ampersand mark will
+	indicate that the process wil be run in the foreground.
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Signals
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Ignored
+	Signals that are ignored include :
+		- SIGALRM 
+		- SIGABRT
+		- SIGHUP
+		- SIGTERM
+		- SIGUSR1
+		- SIGUSR2
+
+Dispositioned
+	Signals that are dispositioned (redirected) include:
+		- SIGINT 
+			This signal is generated through thr keyboard (ctrl + c). This signal is caught and is relayed onto any foreground processes.
+		- SIGQUIT
+			This signal is generated through thr keyboard (ctrl + \). This signal is caught and is relayed onto any foreground processes.
+		- SIGCONT
+			This signal is also relayed onto child processes.
+		- SIGSTOP
+			This signal is also relayed onto child processes.
+--------------------------------------------------------------------------------------------------------------------------------------------
